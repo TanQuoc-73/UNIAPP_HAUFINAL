@@ -1,4 +1,4 @@
-package com.example.uniapp_haufinal;
+package com.example.uniapp_haufinal.activity.home;
 
 import android.os.Bundle;
 
@@ -11,16 +11,31 @@ import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
 import android.widget.ImageView;
 
+import com.example.uniapp_haufinal.activity.market.MarketActivity;
+import com.example.uniapp_haufinal.R;
+import com.example.uniapp_haufinal.activity.map.MapActivity;
+
 public class HomeActivity extends AppCompatActivity {
-    ImageView btnOpenMap;
+    ImageView navMap;
+    ImageView navMarket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
-        btnOpenMap = findViewById(R.id.btnOpenMap);
-        btnOpenMap.setOnClickListener(view ->{
+
+        //Nav
+        //Market
+        navMarket = findViewById(R.id.navMarket);
+        navMarket.setOnClickListener(view ->{
+            Intent intent = new Intent(HomeActivity.this, MarketActivity.class);
+            startActivity(intent);
+        });
+
+        //Map
+        navMap = findViewById(R.id.navMap);
+        navMap.setOnClickListener(view ->{
             Intent intent = new Intent(HomeActivity.this, MapActivity.class);
             startActivity(intent);
         });

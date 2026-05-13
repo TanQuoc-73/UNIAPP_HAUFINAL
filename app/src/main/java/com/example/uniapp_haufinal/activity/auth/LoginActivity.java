@@ -1,4 +1,4 @@
-package com.example.uniapp_haufinal;
+package com.example.uniapp_haufinal.activity.auth;
 
 import android.os.Bundle;
 
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.uniapp_haufinal.R;
+import com.example.uniapp_haufinal.activity.home.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 
