@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "842807852667",
+    "project_id": "uniappdb-33275",
+    "storage_bucket": "uniappdb-33275.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842807852667:android:8b5d9b88cbf0e06ab12cde",
+        "android_client_info": {
+          "package_name": "com.example.uniapp_haufinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842807852667-ktcs0l43vr7d7gs1sinmsg5q2t83jbh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtzLAuTehd0iT_W8Na3nVZsLvWTp8Swcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842807852667-ktcs0l43vr7d7gs1sinmsg5q2t83jbh8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842807852667:android:231b5a29e7d3a160b12cde",
+        "android_client_info": {
+          "package_name": "com.hau"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842807852667-ktcs0l43vr7d7gs1sinmsg5q2t83jbh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtzLAuTehd0iT_W8Na3nVZsLvWTp8Swcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842807852667-ktcs0l43vr7d7gs1sinmsg5q2t83jbh8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
