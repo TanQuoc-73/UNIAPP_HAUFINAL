@@ -48,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
                 auth.createUserWithEmailAndPassword(email, password) .addOnCompleteListener(task->{
                     if(task.isSuccessful()){
                         Toast.makeText(this, "Dang ky thanh cong",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+
                     } else {
                         Toast.makeText(this, "Dang ky that bai", Toast.LENGTH_SHORT).show();
                     }
@@ -56,7 +60,27 @@ public class LoginActivity extends AppCompatActivity {
             });
 
             //btnLogin
-            btnLogin.setOnClickListener(view );
+            btnLogin.setOnClickListener(view->{
+                String email = edtEmail.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
+
+                if(email.isEmpty() || password.isEmpty()){
+                    Toast.makeText(this, "Nhap email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task ->{
+                    if(task.isSuccessful()){
+                        Toast.makeText(this, "Dang nhap thanh cong", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(this, "Dang nhap that bai", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            } );
 
 
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
