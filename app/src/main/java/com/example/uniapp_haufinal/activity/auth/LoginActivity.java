@@ -17,11 +17,19 @@ import com.example.uniapp_haufinal.R;
 import com.example.uniapp_haufinal.activity.home.HomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
+//firebase auth
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class LoginActivity extends AppCompatActivity {
     EditText edtEmail, edtPassword;
     Button btnLogin, btnRegister;
     FirebaseAuth auth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             btnLogin = findViewById(R.id.btnLogin);
             btnRegister = findViewById(R.id.btnRegister);
             auth = FirebaseAuth.getInstance();
+            db = FirebaseFirestore.getInstance();
 
 
 
@@ -49,10 +58,38 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 auth.createUserWithEmailAndPassword(email, password) .addOnCompleteListener(task->{
                     if(task.isSuccessful()){
-                        Toast.makeText(this, "Dang ky thanh cong",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+//
+//                        //Logic don gian
+//                        Toast.makeText(this, "Dang ky thanh cong",Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                        startActivity(intent);
+//                        finish();
+
+                        //Logic de luu user vao collection
+                        String uid = auth.getCurrentUser().getUid();
+                        Map<String, Object> user = new HashMap<>();
+                        user.put("uid", uid);
+                        user.put("email", email);
+                        user.put("displayName", "");
+                        user.put("phone","");
+                        user.put("avatarUrl","");
+                        user.put("role","user");
+                        user.put("status", "active");
+                        user.put("createdAt", FieldValue.serverTimestamp());
+                        user.put("updatedAt",FieldValue.serverTimestamp());
+
+                        db.collection("users").document(uid).set(user)
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(this, "Dang ky thanh cong", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                })
+
+                                .addOnFailureListener(e->{
+//                                    Toast.makeText(this,"Luu thong tin user that bai", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(this, "Loi: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                });
 
                     } else {
                         Toast.makeText(this, "Dang ky that bai", Toast.LENGTH_SHORT).show();
