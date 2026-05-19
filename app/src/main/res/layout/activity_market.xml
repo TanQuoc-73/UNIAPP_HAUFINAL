@@ -35,14 +35,6 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#000000" />
-
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="+"
-            android:textSize="28sp"
-            android:textColor="#000000" />
     </LinearLayout>
 
     <EditText
@@ -51,69 +43,76 @@
         android:layout_height="48dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
+        android:hint="Tim san pham"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:hint="Tim san pham"
         android:background="#EEEEEE"
         android:inputType="text" />
 
-    <HorizontalScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:scrollbars="none">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:hint="Ten vat pham"
             android:paddingStart="12dp"
-            android:paddingEnd="12dp">
+            android:paddingEnd="12dp"
+            android:background="#EEEEEE" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Tat ca"
-                android:textColor="#000000"
-                android:background="#DDDDDD"
-                android:layout_marginEnd="8dp" />
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:hint="Mo ta"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="#EEEEEE" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Dien thoai"
-                android:background="#EEEEEE"
-                android:layout_marginEnd="8dp" />
+        <EditText
+            android:id="@+id/edtPrice"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:hint="Gia"
+            android:inputType="number"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="#EEEEEE" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Laptop"
-                android:background="#EEEEEE"
-                android:layout_marginEnd="8dp" />
+        <EditText
+            android:id="@+id/edtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:hint="Dia diem nhan"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="#EEEEEE" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="Sach"
-                android:background="#EEEEEE"
-                android:layout_marginEnd="8dp" />
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:hint="So dien thoai lien he"
+            android:inputType="phone"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="#EEEEEE" />
 
-        </LinearLayout>
-    </HorizontalScrollView>
+        <Button
+            android:id="@+id/btnAddItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Dang vat pham" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -121,106 +120,11 @@
         android:layout_weight="1">
 
         <LinearLayout
+            android:id="@+id/productContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:background="#F2F2F2"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Anh"
-                    android:background="#DDDDDD" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingStart="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="iPhone 11 cu"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Gia: 5.000.000 VND"
-                        android:textSize="15sp"
-                        android:textColor="#E53935"
-                        android:layout_marginTop="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ha Noi"
-                        android:textSize="14sp"
-                        android:layout_marginTop="6dp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:background="#F2F2F2"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Anh"
-                    android:background="#DDDDDD" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingStart="12dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Laptop Dell"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Gia: 8.500.000 VND"
-                        android:textSize="15sp"
-                        android:textColor="#E53935"
-                        android:layout_marginTop="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TP HCM"
-                        android:textSize="14sp"
-                        android:layout_marginTop="6dp" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
+            android:padding="12dp" />
     </ScrollView>
 
 </LinearLayout>
