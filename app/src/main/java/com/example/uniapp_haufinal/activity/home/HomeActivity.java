@@ -11,13 +11,17 @@ import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
 import android.widget.ImageView;
 
-import com.example.uniapp_haufinal.activity.market.MarketActivity;
 import com.example.uniapp_haufinal.R;
+
+//cac activity de lam nav
+import com.example.uniapp_haufinal.activity.market.MarketActivity;
 import com.example.uniapp_haufinal.activity.map.MapActivity;
+import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
 
 public class HomeActivity extends AppCompatActivity {
     ImageView navMap;
     ImageView navMarket;
+    ImageView navProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +41,12 @@ public class HomeActivity extends AppCompatActivity {
         navMap = findViewById(R.id.navMap);
         navMap.setOnClickListener(view ->{
             Intent intent = new Intent(HomeActivity.this, MapActivity.class);
+            startActivity(intent);
+        });
+
+        navProfile = findViewById(R.id.navProfile);
+        navProfile.setOnClickListener(view->{
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
             startActivity(intent);
         });
 

@@ -239,12 +239,14 @@
 
 
             <ImageView
+                android:id="@+id/navProfile"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:src="@drawable/ic_user"
-                android:textSize="24sp" />
+                android:padding="16dp"
+                android:contentDescription="Profile" />
         </LinearLayout>
 
     </LinearLayout>
