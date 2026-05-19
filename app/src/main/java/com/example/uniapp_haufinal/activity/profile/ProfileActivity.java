@@ -9,10 +9,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.firestore.FieldValue;
 
 import com.example.uniapp_haufinal.R;
 
@@ -25,8 +26,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView txtName, txtEmail, txtPhone, txtRole;
-    Button btnLogout;
+//    TextView txtName, txtEmail, txtPhone, txtRole;
+    EditText edtName, edtPhone;
+    TextView txtEmail, txtRole;
+    Button btnSaveProfile, btnLogout;
 
     FirebaseAuth auth;
     FirebaseFirestore db;
@@ -37,10 +40,11 @@ public class ProfileActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
 
-        txtName = findViewById(R.id.txtName);
+        edtName = findViewById(R.id.edtName);
         txtEmail = findViewById(R.id.txtEmail);
-        txtPhone = findViewById(R.id.txtPhone);
+        edtPhone = findViewById(R.id.edtPhone);
         txtRole = findViewById(R.id.txtRole);
+        btnSaveProfile = findViewById(R.id.btnSaveProfile);
         btnLogout = findViewById(R.id.btnLogout);
 
         auth = FirebaseAuth.getInstance();
@@ -57,6 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         String uid = currentUser.getUid();
 
+
+        //hien thi thong tin user
         db.collection("users").document(uid).get()
                 .addOnSuccessListener(document ->{
                     if(document.exists()){
@@ -69,9 +75,9 @@ public class ProfileActivity extends AppCompatActivity {
                             name = "Chua cap nhat username";
                         }
 
-                        txtName.setText(name);
+                        edtName.setText(name);
                         txtEmail.setText(email);
-                        txtPhone.setText(phone);
+                        edtPhone.setText(phone);
                         txtRole.setText(role);
                     }   else {
                         Toast.makeText(this, "Khong tim thay thong tin user", Toast.LENGTH_SHORT).show();
@@ -80,6 +86,27 @@ public class ProfileActivity extends AppCompatActivity {
                 .addOnFailureListener(e ->{
                     Toast.makeText(this, "Loi tai profile", Toast.LENGTH_SHORT).show();
                 });
+
+        //luu tt user
+        btnSaveProfile.setOnClickListener(view->{
+            String name = edtName.getText().toString().trim();
+            String phone = edtPhone.getText().toString().trim();
+
+            db.collection("users").document(uid).update(
+                    "displayName", edtName.getText().toString().trim(),
+                    "phone", edtPhone.getText().toString().trim(),
+                    "updatedAt", FieldValue.serverTimestamp()
+            ).addOnSuccessListener(unused -> {
+                Toast.makeText(this, "Luu thanh cong thong tin", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(e->{
+                Toast.makeText(this, "Luu thong tin that bai", Toast.LENGTH_SHORT).show();
+            })
+
+            ;
+        });
+
+
+        //dang xuat
         btnLogout.setOnClickListener(view->{
             auth.signOut();
 
