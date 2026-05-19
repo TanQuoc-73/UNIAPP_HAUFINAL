@@ -18,11 +18,13 @@ import com.google.firebase.firestore.FieldValue;
 import com.example.uniapp_haufinal.R;
 
 //firebase
-import com.example.uniapp_haufinal.R;
 import com.example.uniapp_haufinal.activity.auth.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+//luu tt user dang array
+import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -33,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseFirestore db;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +113,6 @@ public class ProfileActivity extends AppCompatActivity {
         //dang xuat
         btnLogout.setOnClickListener(view->{
             auth.signOut();
-
             Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
