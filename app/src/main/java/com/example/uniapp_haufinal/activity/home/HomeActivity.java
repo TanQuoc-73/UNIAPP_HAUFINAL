@@ -70,21 +70,44 @@ public class HomeActivity extends AppCompatActivity {
                         txtAuthor.setTextColor(Color.BLACK);
                         txtAuthor.setTextSize(16);
                         txtAuthor.setTypeface(null, android.graphics.Typeface.BOLD);
+                        txtAuthor.setPadding(0, 0, 0, 12);
 
-                        TextView txtContent = new TextView(this);
-                        txtContent.setText(content);
-                        txtContent.setTextColor(Color.BLACK);
-                        txtContent.setTextSize(15);
-                        txtContent.setPadding(0, 8, 0, 8);
+                        TextView txtImage = new TextView(this);
+                        txtImage.setText("Anh bai viet");
+                        txtImage.setTextColor(Color.DKGRAY);
+                        txtImage.setTextSize(18);
+                        txtImage.setGravity(android.view.Gravity.CENTER);
+                        txtImage.setBackgroundColor(Color.rgb(230, 230, 230));
+
+                        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                520
+                        );
 
                         TextView txtLike = new TextView(this);
                         txtLike.setText(likeCount + " luot thich");
-                        txtLike.setTextColor(Color.DKGRAY);
+                        txtLike.setTextColor(Color.BLACK);
                         txtLike.setTextSize(14);
+                        txtLike.setTypeface(null, android.graphics.Typeface.BOLD);
+                        txtLike.setPadding(0, 12, 0, 4);
+
+                        TextView txtAction = new TextView(this);
+                        txtAction.setText("Tim   Binh luan   Chia se");
+                        txtAction.setTextColor(Color.DKGRAY);
+                        txtAction.setTextSize(14);
+                        txtAction.setPadding(0, 10, 0, 0);
+
+                        TextView txtContent = new TextView(this);
+                        txtContent.setText(authorName + " " + content);
+                        txtContent.setTextColor(Color.BLACK);
+                        txtContent.setTextSize(15);
+                        txtContent.setPadding(0, 0, 0, 8);
 
                         postLayout.addView(txtAuthor);
-                        postLayout.addView(txtContent);
+                        postLayout.addView(txtImage, imageParams);
+                        postLayout.addView(txtAction);
                         postLayout.addView(txtLike);
+                        postLayout.addView(txtContent);
 
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
