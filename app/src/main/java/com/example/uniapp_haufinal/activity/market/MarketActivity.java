@@ -156,6 +156,7 @@ public class MarketActivity extends AppCompatActivity {
                         String sellerName = document.getString("sellerName");
                         String phone = document.getString("contactPhone");
                         String location = document.getString("pickupLocation");
+                        String status = document.getString("status");
                         Long price = document.getLong("price");
 
                         if (title == null) title = "";
@@ -163,7 +164,12 @@ public class MarketActivity extends AppCompatActivity {
                         if (sellerName == null) sellerName = "Nguoi ban";
                         if (phone == null) phone = "";
                         if (location == null) location = "";
+                        if (status == null) status = "";
                         if (price == null) price = 0L;
+
+                        if (!status.equals("available")) {
+                            continue;
+                        }
 
                         if (!searchText.isEmpty() && !title.toLowerCase().contains(searchText)) {
                             continue;
@@ -213,7 +219,7 @@ public class MarketActivity extends AppCompatActivity {
         btnContact.setText("Lien he");
 
         Button btnBuy = new Button(this);
-        btnBuy.setText("Mua");
+        btnBuy.setText("Chi tiet");
 
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
                 0,
@@ -252,29 +258,16 @@ public class MarketActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnBuy.setOnClickListener(view -> lockItem(itemId));
-    }
-
-    private void lockItem(String itemId) {
-        FirebaseUser currentUser = auth.getCurrentUser();
-
-        if (currentUser == null) {
-            Toast.makeText(this, "Ban chua dang nhap", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        long lockedUntil = System.currentTimeMillis() + 3 * 60 * 1000;
-
-        db.collection("marketItems").document(itemId).update(
-                "status", "locked",
-                "lockedBy", currentUser.getUid(),
-                "lockedUntil", lockedUntil,
-                "updatedAt", FieldValue.serverTimestamp()
-        ).addOnSuccessListener(unused -> {
-            Toast.makeText(this, "Da giu hang 3 phut", Toast.LENGTH_SHORT).show();
-            loadMarketItems();
-        }).addOnFailureListener(e -> {
-            Toast.makeText(this, "Mua that bai", Toast.LENGTH_SHORT).show();
+        btnBuy.setOnClickListener(view -> {
+            Intent intent = new Intent(MarketActivity.this, BuyActivity.class);
+            intent.putExtra("itemId", itemId);
+            intent.putExtra("title", title);
+            intent.putExtra("description", description);
+            intent.putExtra("sellerName", sellerName);
+            intent.putExtra("phone", phone);
+            intent.putExtra("location", location);
+            intent.putExtra("price", price);
+            startActivity(intent);
         });
     }
 
