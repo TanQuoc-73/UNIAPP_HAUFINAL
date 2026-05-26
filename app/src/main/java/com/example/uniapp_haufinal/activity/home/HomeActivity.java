@@ -9,7 +9,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import android.content.Intent;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.view.ViewGroup;
@@ -31,10 +30,7 @@ import com.google.firebase.firestore.Query;
 
 
 public class HomeActivity extends AppCompatActivity {
-    ImageView navMap;
-    ImageView navMarket;
-    ImageView navProfile;
-    TextView navPost;
+    TextView navMap, navMarket, navProfile, navPost;
 
     LinearLayout postContainer;
     FirebaseFirestore db;
@@ -144,7 +140,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         //post
-        TextView navPost =findViewById(R.id.navPost);
+        navPost = findViewById(R.id.navPost);
         navPost.setOnClickListener(view -> {
             Intent intent = new Intent(HomeActivity.this, CreatePostActivity.class);
             startActivity(intent);
