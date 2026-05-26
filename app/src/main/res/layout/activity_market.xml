@@ -35,6 +35,15 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/txtAddItem"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="+"
+            android:textSize="28sp"
+            android:textColor="#000000" />
     </LinearLayout>
 
     <EditText
@@ -48,71 +57,6 @@
         android:paddingEnd="16dp"
         android:background="#EEEEEE"
         android:inputType="text" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
-
-        <EditText
-            android:id="@+id/edtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:hint="Ten vat pham"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:background="#EEEEEE" />
-
-        <EditText
-            android:id="@+id/edtDescription"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:hint="Mo ta"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:background="#EEEEEE" />
-
-        <EditText
-            android:id="@+id/edtPrice"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:hint="Gia"
-            android:inputType="number"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:background="#EEEEEE" />
-
-        <EditText
-            android:id="@+id/edtLocation"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:hint="Dia diem nhan"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:background="#EEEEEE" />
-
-        <EditText
-            android:id="@+id/edtPhone"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:hint="So dien thoai lien he"
-            android:inputType="phone"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:background="#EEEEEE" />
-
-        <Button
-            android:id="@+id/btnAddItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Dang vat pham" />
-    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
