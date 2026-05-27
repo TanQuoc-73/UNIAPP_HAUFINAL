@@ -13,6 +13,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uniapp_haufinal.R;
+import com.example.uniapp_haufinal.activity.home.HomeActivity;
+import com.example.uniapp_haufinal.activity.map.MapActivity;
+import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
+import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -20,11 +26,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class MarketActivity extends AppCompatActivity {
 
-    TextView txtBack, txtAddItem;
+    TextView txtBack, txtAddItem, txtMyItems;
+    TextView navHome, navMarket, navPost, navMap, navProfile;
     EditText edtSearchProduct;
     LinearLayout productContainer;
 
     FirebaseFirestore db;
+    FirebaseAuth auth;
 
     String searchText = "";
     int loadRequestId = 0;
@@ -36,16 +44,34 @@ public class MarketActivity extends AppCompatActivity {
 
         txtBack = findViewById(R.id.txtBack);
         txtAddItem = findViewById(R.id.txtAddItem);
+        txtMyItems = findViewById(R.id.txtMyItems);
+        navHome = findViewById(R.id.navHome);
+        navMarket = findViewById(R.id.navMarket);
+        navPost = findViewById(R.id.navPost);
+        navMap = findViewById(R.id.navMap);
+        navProfile = findViewById(R.id.navProfile);
         edtSearchProduct = findViewById(R.id.edtSearchProduct);
         productContainer = findViewById(R.id.productContainer);
 
         db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         txtBack.setOnClickListener(view -> finish());
         txtAddItem.setOnClickListener(view -> {
             Intent intent = new Intent(MarketActivity.this, AddMarketItemActivity.class);
             startActivity(intent);
         });
+        txtMyItems.setOnClickListener(view -> {
+            Intent intent = new Intent(MarketActivity.this, MyMarketItemsActivity.class);
+            startActivity(intent);
+        });
+        navHome.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
+        navMarket.setOnClickListener(view -> {
+            // dang o trang Market
+        });
+        navPost.setOnClickListener(view -> startActivity(new Intent(this, CreatePostActivity.class)));
+        navMap.setOnClickListener(view -> startActivity(new Intent(this, MapActivity.class)));
+        navProfile.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
 
         edtSearchProduct.setOnEditorActionListener((v, actionId, event) -> {
             searchText = edtSearchProduct.getText().toString().trim().toLowerCase();
@@ -83,6 +109,7 @@ public class MarketActivity extends AppCompatActivity {
                         String phone = document.getString("contactPhone");
                         String location = document.getString("pickupLocation");
                         String status = document.getString("status");
+                        String sellerId = document.getString("sellerId");
                         Long price = document.getLong("price");
                         Long lockedUntil = document.getLong("lockedUntil");
 
@@ -92,7 +119,13 @@ public class MarketActivity extends AppCompatActivity {
                         if (phone == null) phone = "";
                         if (location == null) location = "";
                         if (status == null) status = "";
+                        if (sellerId == null) sellerId = "";
                         if (price == null) price = 0L;
+
+                        FirebaseUser currentUser = auth.getCurrentUser();
+                        if (currentUser != null && sellerId.equals(currentUser.getUid())) {
+                            continue;
+                        }
 
                         if (status.equals("locked")) {
                             if (lockedUntil == null || lockedUntil <= System.currentTimeMillis()) {
@@ -113,7 +146,7 @@ public class MarketActivity extends AppCompatActivity {
                             continue;
                         }
 
-                        addItemView(itemId, title, description, sellerName, phone, location, price);
+                        addItemView(itemId, title, description, sellerId, sellerName, phone, location, price);
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -121,7 +154,7 @@ public class MarketActivity extends AppCompatActivity {
                 });
     }
 
-    private void addItemView(String itemId, String title, String description, String sellerName,
+    private void addItemView(String itemId, String title, String description, String sellerId, String sellerName,
                              String phone, String location, Long price) {
 
         LinearLayout itemLayout = new LinearLayout(this);
@@ -178,6 +211,7 @@ public class MarketActivity extends AppCompatActivity {
             intent.putExtra("itemId", itemId);
             intent.putExtra("title", title);
             intent.putExtra("description", description);
+            intent.putExtra("sellerId", sellerId);
             intent.putExtra("sellerName", sellerName);
             intent.putExtra("phone", phone);
             intent.putExtra("location", location);
