@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UNIAPP_HAUFINAL">
         <activity
+            android:name=".activity.market.MyMarketItemsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.market.AddMarketItemActivity"
             android:exported="false" />
         <activity

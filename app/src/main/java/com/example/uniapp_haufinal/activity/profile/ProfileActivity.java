@@ -19,6 +19,10 @@ import com.example.uniapp_haufinal.R;
 
 //firebase
 import com.example.uniapp_haufinal.activity.auth.LoginActivity;
+import com.example.uniapp_haufinal.activity.home.HomeActivity;
+import com.example.uniapp_haufinal.activity.market.MarketActivity;
+import com.example.uniapp_haufinal.activity.map.MapActivity;
+import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
 //    TextView txtName, txtEmail, txtPhone, txtRole;
     EditText edtName, edtPhone;
     TextView txtEmail, txtRole;
+    TextView navHome, navMarket, navPost, navMap, navProfile;
     Button btnSaveProfile, btnLogout;
 
     FirebaseAuth auth;
@@ -50,6 +55,11 @@ public class ProfileActivity extends AppCompatActivity {
         txtRole = findViewById(R.id.txtRole);
         btnSaveProfile = findViewById(R.id.btnSaveProfile);
         btnLogout = findViewById(R.id.btnLogout);
+        navHome = findViewById(R.id.navHome);
+        navMarket = findViewById(R.id.navMarket);
+        navPost = findViewById(R.id.navPost);
+        navMap = findViewById(R.id.navMap);
+        navProfile = findViewById(R.id.navProfile);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -117,6 +127,30 @@ public class ProfileActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
+        });
+
+        navHome.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+            startActivity(intent);
+        });
+
+        navMarket.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, MarketActivity.class);
+            startActivity(intent);
+        });
+
+        navPost.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, CreatePostActivity.class);
+            startActivity(intent);
+        });
+
+        navMap.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, MapActivity.class);
+            startActivity(intent);
+        });
+
+        navProfile.setOnClickListener(view -> {
+            // dang o trang Profile
         });
 
         ;

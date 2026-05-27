@@ -22,7 +22,7 @@ public class BuyActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseFirestore db;
-    String itemId, title, phone;
+    String itemId, title, phone, sellerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class BuyActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         itemId = getIntent().getStringExtra("itemId");
+        sellerId = getIntent().getStringExtra("sellerId");
 
         title = getIntent().getStringExtra("title");
         String description = getIntent().getStringExtra("description");
@@ -64,6 +65,11 @@ public class BuyActivity extends AppCompatActivity {
 
             if (currentUser == null) {
                 Toast.makeText(this, "Chua dang nhap", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (sellerId != null && sellerId.equals(currentUser.getUid())) {
+                Toast.makeText(this, "Khong the mua san pham cua chinh minh", Toast.LENGTH_SHORT).show();
                 return;
             }
 
