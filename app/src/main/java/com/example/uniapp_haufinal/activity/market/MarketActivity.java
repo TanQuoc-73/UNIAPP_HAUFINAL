@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uniapp_haufinal.R;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -26,6 +27,7 @@ public class MarketActivity extends AppCompatActivity {
     FirebaseFirestore db;
 
     String searchText = "";
+    int loadRequestId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,6 @@ public class MarketActivity extends AppCompatActivity {
             loadMarketItems();
             return false;
         });
-
-        loadMarketItems();
     }
 
     @Override
@@ -64,12 +64,17 @@ public class MarketActivity extends AppCompatActivity {
 
     private void loadMarketItems() {
         productContainer.removeAllViews();
+        int currentRequestId = ++loadRequestId;
 
         db.collection("marketItems")
 //                .whereEqualTo("status", "available")
                 .orderBy("createdAt", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (currentRequestId != loadRequestId) {
+                        return;
+                    }
+
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         String itemId = document.getId();
                         String title = document.getString("title");
@@ -79,6 +84,7 @@ public class MarketActivity extends AppCompatActivity {
                         String location = document.getString("pickupLocation");
                         String status = document.getString("status");
                         Long price = document.getLong("price");
+                        Long lockedUntil = document.getLong("lockedUntil");
 
                         if (title == null) title = "";
                         if (description == null) description = "";
@@ -88,7 +94,18 @@ public class MarketActivity extends AppCompatActivity {
                         if (status == null) status = "";
                         if (price == null) price = 0L;
 
-                        if (!status.equals("available")) {
+                        if (status.equals("locked")) {
+                            if (lockedUntil == null || lockedUntil <= System.currentTimeMillis()) {
+                                db.collection("marketItems").document(itemId).update(
+                                        "status", "available",
+                                        "lockedBy", null,
+                                        "lockedUntil", null,
+                                        "updatedAt", FieldValue.serverTimestamp()
+                                );
+                            } else {
+                                continue;
+                            }
+                        } else if (!status.equals("available")) {
                             continue;
                         }
 
