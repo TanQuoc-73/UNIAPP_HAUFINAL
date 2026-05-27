@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.map.MapActivity">
+    tools:context=".activity.map.MapActivity">
 
     <!-- MAP -->
     <org.osmdroid.views.MapView
@@ -96,7 +96,10 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="80dp"
         android:backgroundTint="#FFFFFF"
         android:elevation="10dp"
         android:text="📍"
@@ -110,7 +113,8 @@
         android:gravity="center"
         android:background="#FFFFFF"
         android:paddingStart="4dp"
-        android:paddingEnd="4dp">
+        android:paddingEnd="4dp"
+        android:layout_gravity="bottom">
 
         <TextView android:id="@+id/navHome" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Home" android:textColor="#000000" android:textSize="13sp" />
         <TextView android:id="@+id/navMarket" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Market" android:textColor="#000000" android:textSize="13sp" />
@@ -120,4 +124,4 @@
         <TextView android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Profile" android:textColor="#000000" android:textSize="13sp" />
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>
