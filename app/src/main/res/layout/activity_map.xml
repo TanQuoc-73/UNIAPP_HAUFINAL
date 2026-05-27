@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.map.MapActivity">
+    tools:context=".activity.map.MapActivity">
 
     <!-- MAP -->
     <org.osmdroid.views.MapView
@@ -89,7 +89,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
     <!-- MY LOCATION BUTTON -->
     <Button
         android:id="@+id/btnMyLocation"
@@ -119,5 +118,5 @@
         <TextView android:id="@+id/navMap" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Map" android:textColor="#000000" android:textSize="13sp" />
         <TextView android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Profile" android:textColor="#000000" android:textSize="13sp" />
     </LinearLayout>
+</FrameLayout>
 
-</LinearLayout>
