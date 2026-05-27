@@ -51,4 +51,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.5.1")
     //dependency de doc ghi db trong firebase
     implementation("com.google.firebase:firebase-firestore")
+    
+    // osmdroid & Location services
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
 }
