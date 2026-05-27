@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".activity.market.AddMarketItemActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView android:id="@+id/txtBack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Quay lai" android:textColor="#000000" android:textSize="16sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="Dang san pham" android:textColor="#000000" android:textSize="26sp" android:textStyle="bold" />
+            <EditText android:id="@+id/edtTitle" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="24dp" android:background="#EEEEEE" android:hint="Ten san pham" android:inputType="text" android:paddingStart="12dp" android:paddingEnd="12dp" android:textColor="#000000" />
+            <EditText android:id="@+id/edtDescription" android:layout_width="match_parent" android:layout_height="120dp" android:layout_marginTop="12dp" android:background="#EEEEEE" android:gravity="top" android:hint="Mo ta san pham" android:inputType="textMultiLine" android:padding="12dp" android:textColor="#000000" />
+            <EditText android:id="@+id/edtPrice" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="12dp" android:background="#EEEEEE" android:hint="Gia" android:inputType="number" android:paddingStart="12dp" android:paddingEnd="12dp" android:textColor="#000000" />
+            <EditText android:id="@+id/edtPhone" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="12dp" android:background="#EEEEEE" android:hint="So dien thoai" android:inputType="phone" android:paddingStart="12dp" android:paddingEnd="12dp" android:textColor="#000000" />
+            <EditText android:id="@+id/edtLocation" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="12dp" android:background="#EEEEEE" android:hint="Dia diem nhan hang" android:inputType="text" android:paddingStart="12dp" android:paddingEnd="12dp" android:textColor="#000000" />
+            <Button android:id="@+id/btnSubmitItem" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="Dang san pham" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="60dp" android:orientation="horizontal" android:gravity="center" android:background="#FFFFFF" android:paddingStart="4dp" android:paddingEnd="4dp">
+        <TextView android:id="@+id/navHome" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Home" android:textColor="#000000" android:textSize="13sp" />
+        <TextView android:id="@+id/navMarket" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Market" android:textColor="#000000" android:textSize="13sp" />
+        <TextView android:id="@+id/navPost" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="+" android:textColor="#000000" android:textSize="26sp" />
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Tim" android:textColor="#000000" android:textSize="13sp" />
+        <TextView android:id="@+id/navMap" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Map" android:textColor="#000000" android:textSize="13sp" />
+        <TextView android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Profile" android:textColor="#000000" android:textSize="13sp" />
+    </LinearLayout>
+</LinearLayout>
