@@ -10,10 +10,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.uniapp_haufinal.R;
 
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.uniapp_haufinal.activity.home.HomeActivity;
+import com.example.uniapp_haufinal.activity.market.MarketActivity;
+import com.example.uniapp_haufinal.activity.map.MapActivity;
+import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
 
 //firebase
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +34,7 @@ import java.util.Map;
 public class CreatePostActivity extends AppCompatActivity {
 
     TextView txtBack;
+    TextView navHome, navMarket, navPost, navMap, navProfile;
     EditText edtContent;
     Button btnSubmitPost;
 
@@ -41,6 +48,11 @@ public class CreatePostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_post);
 
         txtBack = findViewById(R.id.txtBack);
+        navHome = findViewById(R.id.navHome);
+        navMarket = findViewById(R.id.navMarket);
+        navPost = findViewById(R.id.navPost);
+        navMap = findViewById(R.id.navMap);
+        navProfile = findViewById(R.id.navProfile);
         edtContent = findViewById(R.id.edtContent);
         btnSubmitPost = findViewById(R.id.btnSubmitPost);
 
@@ -50,6 +62,13 @@ public class CreatePostActivity extends AppCompatActivity {
         txtBack.setOnClickListener(view->{
             finish();
         });
+        navHome.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
+        navMarket.setOnClickListener(view -> startActivity(new Intent(this, MarketActivity.class)));
+        navPost.setOnClickListener(view -> {
+            // dang o trang dang bai
+        });
+        navMap.setOnClickListener(view -> startActivity(new Intent(this, MapActivity.class)));
+        navProfile.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
 
         //dang bai
         btnSubmitPost.setOnClickListener(view ->{
