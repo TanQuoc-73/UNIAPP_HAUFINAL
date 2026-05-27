@@ -29,12 +29,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 //luu tt user dang array
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import com.google.firebase.firestore.SetOptions;
 
 public class ProfileActivity extends AppCompatActivity {
 
 //    TextView txtName, txtEmail, txtPhone, txtRole;
     EditText edtName, edtPhone;
-    TextView txtEmail, txtRole;
+    TextView txtEmail;
+    TextView txtRole;
     TextView navHome, navMarket, navPost, navMap, navProfile;
     Button btnSaveProfile, btnLogout;
 
@@ -48,6 +52,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         edtName = findViewById(R.id.edtName);
         txtEmail = findViewById(R.id.txtEmail);
@@ -85,20 +95,27 @@ public class ProfileActivity extends AppCompatActivity {
                         String phone = document.getString("phone");
                         String role = document.getString("role");
 
-                        if(name == null || name.isEmpty()){
-                            name = "Chua cap nhat username";
+                        if(name != null && !name.isEmpty()){
+                            edtName.setText(name);
+                        } else {
+                            edtName.setHint("Chua cap nhat username");
                         }
 
-                        edtName.setText(name);
-                        txtEmail.setText(email);
-                        edtPhone.setText(phone);
-                        txtRole.setText(role);
+                        txtEmail.setText("Email: " + email);
+
+                        if(phone != null && !phone.isEmpty()){
+                            edtPhone.setText(phone);
+                        } else {
+                            edtPhone.setHint("Chua cap nhat so dien thoai");
+                        }
+
+                        txtRole.setText("Vai tro: " + role);
                     }   else {
                         Toast.makeText(this, "Khong tim thay thong tin user", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e ->{
-                    Toast.makeText(this, "Loi tai profile", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Loi tai profile: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
 
         //luu tt user
@@ -106,17 +123,23 @@ public class ProfileActivity extends AppCompatActivity {
             String name = edtName.getText().toString().trim();
             String phone = edtPhone.getText().toString().trim();
 
-            db.collection("users").document(uid).update(
-                    "displayName", edtName.getText().toString().trim(),
-                    "phone", edtPhone.getText().toString().trim(),
-                    "updatedAt", FieldValue.serverTimestamp()
-            ).addOnSuccessListener(unused -> {
-                Toast.makeText(this, "Luu thanh cong thong tin", Toast.LENGTH_SHORT).show();
-            }).addOnFailureListener(e->{
-                Toast.makeText(this, "Luu thong tin that bai", Toast.LENGTH_SHORT).show();
-            })
+            if(name.isEmpty()){
+                Toast.makeText(this, "Vui long nhap ten!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            ;
+            Map<String, Object> userUpdates = new HashMap<>();
+            userUpdates.put("displayName", name);
+            userUpdates.put("phone", phone);
+            userUpdates.put("updatedAt", FieldValue.serverTimestamp());
+
+            db.collection("users").document(uid)
+                    .set(userUpdates, SetOptions.merge())
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(this, "Luu thanh cong thong tin", Toast.LENGTH_SHORT).show();
+                    }).addOnFailureListener(e->{
+                        Toast.makeText(this, "Luu thong tin that bai: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    });
         });
 
 
