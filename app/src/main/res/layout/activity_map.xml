@@ -1,123 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.map.MapActivity">
-
-    <!-- MAP -->
-    <org.osmdroid.views.MapView
-        android:id="@+id/map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <!-- TOP OVERLAY -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_gravity="top">
-
-        <!-- Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@android:color/white"
-            android:elevation="8dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
-            <!-- Back -->
-            <TextView
-                android:id="@+id/txtBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="←"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="#111111" />
-
-            <!-- Title -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Bản đồ"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#111111" />
-
-        </LinearLayout>
-
-        <!-- Search Bar -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@android:color/white"
-            android:elevation="8dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
-            <!-- Search Icon -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🔍"
-                android:textSize="18sp" />
-
-            <!-- Input -->
-            <EditText
-                android:id="@+id/edtSearchPlace"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="Tìm địa điểm..."
-                android:paddingStart="12dp"
-                android:textColor="#111111"
-                android:textColorHint="#888888"
-                android:inputType="text" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- MY LOCATION BUTTON -->
-    <Button
-        android:id="@+id/btnMyLocation"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
-        android:backgroundTint="#FFFFFF"
-        android:elevation="10dp"
-        android:text="📍"
-        android:textSize="22sp"
-        android:textColor="#111111" />
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".activity.map.MapActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:background="#FFFFFF"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp">
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="#FFFFFF">
 
-        <TextView android:id="@+id/navHome" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Home" android:textColor="#000000" android:textSize="13sp" />
-        <TextView android:id="@+id/navMarket" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Market" android:textColor="#000000" android:textSize="13sp" />
-        <TextView android:id="@+id/navPost" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="+" android:textColor="#000000" android:textSize="26sp" />
-        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Tim" android:textColor="#000000" android:textSize="13sp" />
-        <TextView android:id="@+id/navMap" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Map" android:textColor="#000000" android:textSize="13sp" />
-        <TextView android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Profile" android:textColor="#000000" android:textSize="13sp" />
+        <TextView
+            android:id="@+id/txtBack"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="&lt;"
+            android:textSize="28sp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Ban do"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/edtSearchPlace"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:hint="Tim dia diem"
+        android:background="#EEEEEE"
+        android:inputType="text" />
+
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#DDEEFF">
+
+        <TextView
+            android:id="@+id/txtMapPlaceholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Khu vuc hien thi ban do"
+            android:textSize="20sp"
+            android:textColor="#333333" />
+
+        <Button
+            android:id="@+id/btnMyLocation"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:text="◎" />
+    </FrameLayout>
 
 </LinearLayout>
