@@ -51,6 +51,13 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.5.1")
     //dependency de doc ghi db trong firebase
     implementation("com.google.firebase:firebase-firestore")
+
+
+    //Cloudinary
+    implementation("com.cloudinary:cloudinary-android:2.3.1")
+
+    //Load dinh dang anh tren cloudinary ve
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     
     // osmdroid & Location services
     implementation("org.osmdroid:osmdroid-android:6.1.18")

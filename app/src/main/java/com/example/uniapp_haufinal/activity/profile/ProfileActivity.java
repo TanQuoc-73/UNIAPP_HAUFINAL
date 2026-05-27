@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.firestore.FieldValue;
 
+//Cloudinary
+import com.example.uniapp_haufinal.utils.Cloudinary;
+
 import com.example.uniapp_haufinal.R;
 
 //firebase
@@ -27,7 +30,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-//luu tt user dang array
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
