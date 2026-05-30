@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.Timestamp;
 
 public class MarketActivity extends AppCompatActivity {
 
@@ -111,7 +112,8 @@ public class MarketActivity extends AppCompatActivity {
                         String status = document.getString("status");
                         String sellerId = document.getString("sellerId");
                         Long price = document.getLong("price");
-                        Long lockedUntil = document.getLong("lockedUntil");
+                        Timestamp lockedUntil =
+                                document.getTimestamp("lockedUntil");
 
                         if (title == null) title = "";
                         if (description == null) description = "";
@@ -127,18 +129,35 @@ public class MarketActivity extends AppCompatActivity {
                             continue;
                         }
 
-                        if (status.equals("locked")) {
-                            if (lockedUntil == null || lockedUntil <= System.currentTimeMillis()) {
-                                db.collection("marketItems").document(itemId).update(
-                                        "status", "available",
-                                        "lockedBy", null,
-                                        "lockedUntil", null,
-                                        "updatedAt", FieldValue.serverTimestamp()
-                                );
+                        long now = System.currentTimeMillis();
+
+                        if ("available".equals(status)) {
+
+                            // Hiển thị bình thường
+
+                        }
+                        else if ("pending".equals(status)) {
+
+                            if (lockedUntil == null ||
+                                    lockedUntil.toDate().getTime() <= now) {
+
+                                db.collection("marketItems")
+                                        .document(itemId)
+                                        .update(
+                                                "status", "available",
+                                                "buyerId", null,
+                                                "lockedUntil", null,
+                                                "updatedAt",
+                                                FieldValue.serverTimestamp()
+                                        );
+
                             } else {
+
                                 continue;
                             }
-                        } else if (!status.equals("available")) {
+                        }
+                        else {
+
                             continue;
                         }
 

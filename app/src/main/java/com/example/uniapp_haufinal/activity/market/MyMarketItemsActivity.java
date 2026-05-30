@@ -249,7 +249,7 @@ public class MyMarketItemsActivity extends AppCompatActivity {
 
         db.collection("marketItems").document(itemId).update(
                 "status", newStatus,
-                "lockedBy", null,
+                "buyerId", null,
                 "lockedUntil", null,
                 "updatedAt", FieldValue.serverTimestamp()
         ).addOnSuccessListener(unused -> {
