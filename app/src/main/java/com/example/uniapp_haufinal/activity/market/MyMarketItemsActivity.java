@@ -24,6 +24,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.Map;
+
 public class MyMarketItemsActivity extends AppCompatActivity {
 
     TextView txtBack, navHome, navMarket, navPost, navMap, navProfile;
@@ -82,13 +84,13 @@ public class MyMarketItemsActivity extends AppCompatActivity {
                         String phone = document.getString("contactPhone");
                         String location = document.getString("pickupLocation");
                         String status = document.getString("status");
-                        Long price = document.getLong("price");
+                        Long price = laySoLong(document.getData(), "price");
 
                         if (title == null) title = "";
                         if (description == null) description = "";
                         if (phone == null) phone = "";
                         if (location == null) location = "";
-                        if (status == null) status = "";
+                        status = chuanHoaStatus(status);
                         if (price == null) price = 0L;
 
                         addMyItemView(itemId, title, description, phone, location, status, price);
@@ -128,10 +130,10 @@ public class MyMarketItemsActivity extends AppCompatActivity {
         btnDelete.setText("Xóa");
 
         Button btnStatus = new Button(this);
-        if (status.equals("Đã bán")) {
-            btnStatus.setText("Bán lại");
+        if (status.equals("sold")) {
+            btnStatus.setText("Ban lai");
         } else {
-            btnStatus.setText("Đã bán");
+            btnStatus.setText("Da ban");
         }
 
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
@@ -249,12 +251,55 @@ public class MyMarketItemsActivity extends AppCompatActivity {
 
         db.collection("marketItems").document(itemId).update(
                 "status", newStatus,
-                "buyerId", null,
-                "lockedUntil", null,
                 "updatedAt", FieldValue.serverTimestamp()
         ).addOnSuccessListener(unused -> {
             Toast.makeText(this, "Đã cập nhật trạng thái", Toast.LENGTH_SHORT).show();
             loadMyItems();
         });
+    }
+
+    private String chuanHoaStatus(String status) {
+        if (status == null || status.trim().isEmpty()) {
+            return "available";
+        }
+
+        status = status.trim().toLowerCase();
+
+        //giu hang da bi bo, san pham locked cu cho ve available
+        if (status.equals("locked")) {
+            return "available";
+        }
+
+        return status;
+    }
+
+    private Long laySoLong(Map<String, Object> data, String fieldName) {
+        Object value = data.get(fieldName);
+
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof Long) {
+            return (Long) value;
+        }
+
+        if (value instanceof Integer) {
+            return ((Integer) value).longValue();
+        }
+
+        if (value instanceof Double) {
+            return ((Double) value).longValue();
+        }
+
+        if (value instanceof String) {
+            try {
+                return Long.parseLong((String) value);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+
+        return null;
     }
 }

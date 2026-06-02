@@ -25,6 +25,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.Timestamp;
 
+import java.util.Map;
+
 public class MarketActivity extends AppCompatActivity {
 
     TextView txtBack, txtAddItem, txtMyItems;
@@ -111,16 +113,14 @@ public class MarketActivity extends AppCompatActivity {
                         String location = document.getString("pickupLocation");
                         String status = document.getString("status");
                         String sellerId = document.getString("sellerId");
-                        Long price = document.getLong("price");
-                        Timestamp lockedUntil =
-                                document.getTimestamp("lockedUntil");
+                        Long price = laySoLong(document.getData(), "price");
 
                         if (title == null) title = "";
                         if (description == null) description = "";
                         if (sellerName == null) sellerName = "Nguoi ban";
                         if (phone == null) phone = "";
                         if (location == null) location = "";
-                        if (status == null) status = "";
+                        status = chuanHoaStatus(status);
                         if (sellerId == null) sellerId = "";
                         if (price == null) price = 0L;
 
@@ -129,37 +129,11 @@ public class MarketActivity extends AppCompatActivity {
                             continue;
                         }
 
-                        long now = System.currentTimeMillis();
-
-                        if ("available".equals(status)) {
-
-                            // Hiển thị bình thường
-
-                        }
-                        else if ("pending".equals(status)) {
-
-                            if (lockedUntil == null ||
-                                    lockedUntil.toDate().getTime() <= now) {
-
-                                db.collection("marketItems")
-                                        .document(itemId)
-                                        .update(
-                                                "status", "available",
-                                                "buyerId", null,
-                                                "lockedUntil", null,
-                                                "updatedAt",
-                                                FieldValue.serverTimestamp()
-                                        );
-
-                            } else {
-
-                                continue;
-                            }
-                        }
-                        else {
-
+                        if (!status.equals("available")) {
                             continue;
                         }
+
+                        suaStatusCuNeuCan(itemId, document.getString("status"));
 
                         if (!searchText.isEmpty() && !title.toLowerCase().contains(searchText)) {
                             continue;
@@ -237,6 +211,60 @@ public class MarketActivity extends AppCompatActivity {
             intent.putExtra("price", price);
             startActivity(intent);
         });
+    }
+
+    private String chuanHoaStatus(String status) {
+        if (status == null || status.trim().isEmpty()) {
+            return "available";
+        }
+
+        status = status.trim().toLowerCase();
+
+        //truoc day co chuc nang giu hang, gio bo roi nen locked cho ve available
+        if (status.equals("locked")) {
+            return "available";
+        }
+
+        return status;
+    }
+
+    private void suaStatusCuNeuCan(String itemId, String statusCu) {
+        if (statusCu == null || statusCu.trim().isEmpty() || statusCu.equals("locked")) {
+            db.collection("marketItems").document(itemId).update(
+                    "status", "available",
+                    "updatedAt", FieldValue.serverTimestamp()
+            );
+        }
+    }
+
+    private Long laySoLong(Map<String, Object> data, String fieldName) {
+        Object value = data.get(fieldName);
+
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof Long) {
+            return (Long) value;
+        }
+
+        if (value instanceof Integer) {
+            return ((Integer) value).longValue();
+        }
+
+        if (value instanceof Double) {
+            return ((Double) value).longValue();
+        }
+
+        if (value instanceof String) {
+            try {
+                return Long.parseLong((String) value);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+
+        return null;
     }
 
 }

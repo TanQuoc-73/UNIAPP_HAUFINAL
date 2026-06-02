@@ -4,14 +4,9 @@ import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import android.content.Intent;
 import android.widget.TextView;
-import android.graphics.Color;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,112 +19,22 @@ import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
 import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
 
 //firebase
-import com.google.firebase.Firebase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 
 public class HomeActivity extends AppCompatActivity {
-    TextView navMap, navMarket, navProfile, navPost;
+    TextView navHome, navMap, navMarket, navProfile, navPost;
 
     LinearLayout postContainer;
     FirebaseFirestore db;
-
-
-    //ham hien thi bai viet
-    private void loadPost(){
-        postContainer.removeAllViews();
-
-        db.collection("posts")
-                //loc bai viet
-//                .whereEqualTo("status", "approved")
-//                .orderBy("createdAt", Query.Direction.DESCENDING)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (var document : queryDocumentSnapshots){
-                        String authorName = document.getString("authorName");
-                        String content = document.getString("content");
-                        Long likeCount = document.getLong("likeCount");
-
-                        if(authorName == null || authorName.isEmpty()){
-                            authorName = "An danh";
-                        }
-                        if(content == null){
-                            content = "";
-                        }
-                        if(likeCount == null){
-                            likeCount = 0L;
-                        }
-                        LinearLayout postLayout = new LinearLayout(this);
-                        postLayout.setOrientation(LinearLayout.VERTICAL);
-                        postLayout.setPadding(16, 16, 16, 16);
-                        postLayout.setBackgroundColor(Color.WHITE);
-
-                        TextView txtAuthor = new TextView(this);
-                        txtAuthor.setText(authorName);
-                        txtAuthor.setTextColor(Color.BLACK);
-                        txtAuthor.setTextSize(16);
-                        txtAuthor.setTypeface(null, android.graphics.Typeface.BOLD);
-                        txtAuthor.setPadding(0, 0, 0, 12);
-
-                        TextView txtImage = new TextView(this);
-                        txtImage.setText("Anh bai viet");
-                        txtImage.setTextColor(Color.DKGRAY);
-                        txtImage.setTextSize(18);
-                        txtImage.setGravity(android.view.Gravity.CENTER);
-                        txtImage.setBackgroundColor(Color.rgb(230, 230, 230));
-
-                        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                520
-                        );
-
-                        TextView txtLike = new TextView(this);
-                        txtLike.setText(likeCount + " luot thich");
-                        txtLike.setTextColor(Color.BLACK);
-                        txtLike.setTextSize(14);
-                        txtLike.setTypeface(null, android.graphics.Typeface.BOLD);
-                        txtLike.setPadding(0, 12, 0, 4);
-
-                        TextView txtAction = new TextView(this);
-                        txtAction.setText("Tim   Binh luan   Chia se");
-                        txtAction.setTextColor(Color.DKGRAY);
-                        txtAction.setTextSize(14);
-                        txtAction.setPadding(0, 10, 0, 0);
-
-                        TextView txtContent = new TextView(this);
-                        txtContent.setText(authorName + " " + content);
-                        txtContent.setTextColor(Color.BLACK);
-                        txtContent.setTextSize(15);
-                        txtContent.setPadding(0, 0, 0, 8);
-
-                        postLayout.addView(txtAuthor);
-                        postLayout.addView(txtImage, imageParams);
-                        postLayout.addView(txtAction);
-                        postLayout.addView(txtLike);
-                        postLayout.addView(txtContent);
-
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.WRAP_CONTENT
-                        );
-                        params.setMargins(0, 0, 0, 16);
-
-                        postContainer.addView(postLayout, params);
-                    }
-
-
-                }).addOnFailureListener(e -> {
-                    Toast.makeText(this, "Khong tai dc bai viet", Toast.LENGTH_SHORT).show();
-                });
-    }
+    HomePost homePost;
 
     @Override
     //reload bai viet
     protected void onResume(){
         super.onResume();
-        if(postContainer !=null){
-            loadPost();
+        if(homePost !=null){
+            homePost.loadPost();
         }
     }
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +44,16 @@ public class HomeActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         postContainer = findViewById(R.id.postContainer);
+        homePost = new HomePost(this, postContainer, db);
 
         //Nav
+        //Home
+        navHome = findViewById(R.id.navHome);
+        navHome.setOnClickListener(view -> {
+            homePost.loadPost();
+            Toast.makeText(this, "Da tai lai bai viet", Toast.LENGTH_SHORT).show();
+        });
+
         //Market
         navMarket = findViewById(R.id.navMarket);
         navMarket.setOnClickListener(view ->{

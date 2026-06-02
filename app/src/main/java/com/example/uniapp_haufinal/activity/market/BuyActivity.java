@@ -11,6 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uniapp_haufinal.R;
+import com.example.uniapp_haufinal.activity.home.HomeActivity;
+import com.example.uniapp_haufinal.activity.map.MapActivity;
+import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
+import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
@@ -22,6 +26,7 @@ import java.util.Date;
 public class BuyActivity extends AppCompatActivity {
 
     TextView txtBack, txtTitle, txtPrice, txtDescription, txtSeller, txtPhone, txtLocation;
+    TextView navHome, navMarket, navPost, navMap, navProfile;
     Button btnBuy, btnCall, btnSms;
 
     FirebaseAuth auth;
@@ -43,6 +48,11 @@ public class BuyActivity extends AppCompatActivity {
         btnBuy = findViewById(R.id.btnBuy);
         btnCall = findViewById(R.id.btnCall);
         btnSms = findViewById(R.id.btnSms);
+        navHome = findViewById(R.id.navHome);
+        navMarket = findViewById(R.id.navMarket);
+        navPost = findViewById(R.id.navPost);
+        navMap = findViewById(R.id.navMap);
+        navProfile = findViewById(R.id.navProfile);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -64,6 +74,12 @@ public class BuyActivity extends AppCompatActivity {
         txtLocation.setText("Dia diem: " + location);
 
         txtBack.setOnClickListener(view -> finish());
+        navHome.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
+        navMarket.setOnClickListener(view -> finish());
+        navPost.setOnClickListener(view -> startActivity(new Intent(this, CreatePostActivity.class)));
+        navMap.setOnClickListener(view -> startActivity(new Intent(this, MapActivity.class)));
+        navProfile.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
+
         btnBuy.setOnClickListener(view -> {
             FirebaseUser currentUser = auth.getCurrentUser();
 
@@ -77,37 +93,15 @@ public class BuyActivity extends AppCompatActivity {
                 return;
             }
 
-            String buyerId = currentUser.getUid();
-
-            // Khóa 3 phút bằng Date (Firestore sẽ tự hiểu là Timestamp)
-            Date lockUntilDate = new Date(System.currentTimeMillis() + (3 * 60 * 1000));
-
-            db.collection("marketItems")
-                    .document(itemId)
-                    .update(
-                            "status", "pending",
-                            "buyerId", buyerId,
-                            "lockedUntil", lockUntilDate,
-                            "updatedAt", FieldValue.serverTimestamp()
-                    )
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Đã giữ hàng 3 phút", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(BuyActivity.this, ChatActivity.class);
-                        // Sử dụng đúng key mà ChatActivity yêu cầu
-                        intent.putExtra(ChatActivity.EXTRA_ITEM_ID, itemId);
-                        intent.putExtra(ChatActivity.EXTRA_PARTNER_ID, sellerId);
-                        intent.putExtra(ChatActivity.EXTRA_PARTNER_NAME, sellerName);
-                        startActivity(intent);
-                    })
-                    .addOnFailureListener(e -> {
-
-                        Toast.makeText(
-                                this,
-                                "Dat mua that bai",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    });
+            db.collection("marketItems").document(itemId).update(
+                    "status", "sold",
+                    "updatedAt", FieldValue.serverTimestamp()
+            ).addOnSuccessListener(unused -> {
+                Toast.makeText(this, "Da mua san pham", Toast.LENGTH_SHORT).show();
+                finish();
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Mua san pham that bai", Toast.LENGTH_SHORT).show();
+            });
         });
 
         btnCall.setOnClickListener(view -> {
