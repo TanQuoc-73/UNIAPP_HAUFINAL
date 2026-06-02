@@ -122,16 +122,16 @@ public class MyMarketItemsActivity extends AppCompatActivity {
         buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
 
         Button btnEdit = new Button(this);
-        btnEdit.setText("Sua");
+        btnEdit.setText("Sửa");
 
         Button btnDelete = new Button(this);
-        btnDelete.setText("Xoa");
+        btnDelete.setText("Xóa");
 
         Button btnStatus = new Button(this);
-        if (status.equals("sold")) {
-            btnStatus.setText("Ban lai");
+        if (status.equals("Đã bán")) {
+            btnStatus.setText("Bán lại");
         } else {
-            btnStatus.setText("Da ban");
+            btnStatus.setText("Đã bán");
         }
 
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
@@ -168,24 +168,24 @@ public class MyMarketItemsActivity extends AppCompatActivity {
         layout.setPadding(30, 20, 30, 0);
 
         EditText edtTitle = new EditText(this);
-        edtTitle.setHint("Ten san pham");
+        edtTitle.setHint("Tên sản phẩm");
         edtTitle.setText(title);
 
         EditText edtDescription = new EditText(this);
-        edtDescription.setHint("Mo ta");
+        edtDescription.setHint("Mô tả");
         edtDescription.setText(description);
 
         EditText edtPrice = new EditText(this);
-        edtPrice.setHint("Gia");
+        edtPrice.setHint("Giá");
         edtPrice.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
         edtPrice.setText(String.valueOf(price));
 
         EditText edtPhone = new EditText(this);
-        edtPhone.setHint("So dien thoai");
+        edtPhone.setHint("Số điện thoại");
         edtPhone.setText(phone);
 
         EditText edtLocation = new EditText(this);
-        edtLocation.setHint("Dia diem");
+        edtLocation.setHint("Địa điểm");
         edtLocation.setText(location);
 
         layout.addView(edtTitle);
@@ -195,9 +195,9 @@ public class MyMarketItemsActivity extends AppCompatActivity {
         layout.addView(edtLocation);
 
         new AlertDialog.Builder(this)
-                .setTitle("Sua san pham")
+                .setTitle("Sửa sản phẩm")
                 .setView(layout)
-                .setPositiveButton("Luu", (dialog, which) -> {
+                .setPositiveButton("Lưu", (dialog, which) -> {
                     String newTitle = edtTitle.getText().toString().trim();
                     String newDescription = edtDescription.getText().toString().trim();
                     String newPriceText = edtPrice.getText().toString().trim();
@@ -205,7 +205,7 @@ public class MyMarketItemsActivity extends AppCompatActivity {
                     String newLocation = edtLocation.getText().toString().trim();
 
                     if (newTitle.isEmpty() || newPriceText.isEmpty() || newPhone.isEmpty() || newLocation.isEmpty()) {
-                        Toast.makeText(this, "Nhap du thong tin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -219,11 +219,11 @@ public class MyMarketItemsActivity extends AppCompatActivity {
                             "pickupLocation", newLocation,
                             "updatedAt", FieldValue.serverTimestamp()
                     ).addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Da cap nhat", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Đã cập nhật sản phẩm", Toast.LENGTH_SHORT).show();
                         loadMyItems();
                     });
                 })
-                .setNegativeButton("Huy", null)
+                .setNegativeButton("Hủy", null)
                 .show();
     }
 
@@ -231,11 +231,11 @@ public class MyMarketItemsActivity extends AppCompatActivity {
         db.collection("marketItems").document(itemId)
                 .delete()
                 .addOnSuccessListener(unused -> {
-                    Toast.makeText(this, "Da xoa", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Đã xóa", Toast.LENGTH_SHORT).show();
                     loadMyItems();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Xoa that bai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -253,7 +253,7 @@ public class MyMarketItemsActivity extends AppCompatActivity {
                 "lockedUntil", null,
                 "updatedAt", FieldValue.serverTimestamp()
         ).addOnSuccessListener(unused -> {
-            Toast.makeText(this, "Da cap nhat trang thai", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Đã cập nhật trạng thái", Toast.LENGTH_SHORT).show();
             loadMyItems();
         });
     }
