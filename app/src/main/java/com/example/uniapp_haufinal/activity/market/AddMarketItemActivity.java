@@ -1,5 +1,6 @@
 package com.example.uniapp_haufinal.activity.market;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uniapp_haufinal.R;
+import com.example.uniapp_haufinal.activity.home.HomeActivity;
+import com.example.uniapp_haufinal.activity.map.MapActivity;
+import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
+import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
@@ -19,7 +24,7 @@ import java.util.Map;
 
 public class AddMarketItemActivity extends AppCompatActivity {
 
-    TextView txtBack;
+    TextView txtBack, navHome, navMarket, navPost, navMap, navProfile;
     EditText edtTitle, edtDescription, edtPrice, edtPhone, edtLocation;
     Button btnSubmitItem;
 
@@ -38,12 +43,23 @@ public class AddMarketItemActivity extends AppCompatActivity {
         edtPhone = findViewById(R.id.edtPhone);
         edtLocation = findViewById(R.id.edtLocation);
         btnSubmitItem = findViewById(R.id.btnSubmitItem);
+        navHome = findViewById(R.id.navHome);
+        navMarket = findViewById(R.id.navMarket);
+        navPost = findViewById(R.id.navPost);
+        navMap = findViewById(R.id.navMap);
+        navProfile = findViewById(R.id.navProfile);
 
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         txtBack.setOnClickListener(view -> finish());
         btnSubmitItem.setOnClickListener(view -> submitItem());
+
+        navHome.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
+        navMarket.setOnClickListener(view -> finish());
+        navPost.setOnClickListener(view -> startActivity(new Intent(this, CreatePostActivity.class)));
+        navMap.setOnClickListener(view -> startActivity(new Intent(this, MapActivity.class)));
+        navProfile.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
     }
 
     private void submitItem() {
