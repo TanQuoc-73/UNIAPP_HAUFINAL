@@ -2,6 +2,9 @@ package com.example.uniapp_haufinal.activity.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +16,8 @@ import com.example.uniapp_haufinal.activity.map.MapActivity;
 import com.example.uniapp_haufinal.activity.market.MarketActivity;
 import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
 import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ChatActivity extends AppCompatActivity {
     TextView navHome, navMarket, navPost, navMap, navProfile;
