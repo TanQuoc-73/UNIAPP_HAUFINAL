@@ -82,7 +82,7 @@
         android:id="@+id/btnBuy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dat mua / giu hang 3 phut" />
+        android:text="Mua san pham" />
 
     <Button
         android:id="@+id/btnCall"
