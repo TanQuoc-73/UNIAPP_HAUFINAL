@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.uniapp_haufinal.activity.friends.FriendsActivity;
 import com.example.uniapp_haufinal.activity.home.HomeActivity;
 import com.example.uniapp_haufinal.activity.market.MarketActivity;
 import com.example.uniapp_haufinal.activity.map.MapActivity;
@@ -24,7 +25,6 @@ import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
 //firebase
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -34,7 +34,7 @@ import java.util.Map;
 public class CreatePostActivity extends AppCompatActivity {
 
     TextView txtBack;
-    TextView navHome, navMarket, navPost, navMap, navProfile;
+    TextView navHome, navMarket, navPost, navFriends, navMap, navProfile;
     EditText edtContent;
     Button btnSubmitPost;
 
@@ -51,6 +51,7 @@ public class CreatePostActivity extends AppCompatActivity {
         navHome = findViewById(R.id.navHome);
         navMarket = findViewById(R.id.navMarket);
         navPost = findViewById(R.id.navPost);
+        navFriends = findViewById(R.id.navFriends);
         navMap = findViewById(R.id.navMap);
         navProfile = findViewById(R.id.navProfile);
         edtContent = findViewById(R.id.edtContent);
@@ -67,6 +68,7 @@ public class CreatePostActivity extends AppCompatActivity {
         navPost.setOnClickListener(view -> {
             // dang o trang dang bai
         });
+        navFriends.setOnClickListener(view -> startActivity(new Intent(this, FriendsActivity.class)));
         navMap.setOnClickListener(view -> startActivity(new Intent(this, MapActivity.class)));
         navProfile.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
 

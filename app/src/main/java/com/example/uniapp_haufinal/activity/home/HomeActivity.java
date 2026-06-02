@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.uniapp_haufinal.R;
 
 //cac activity nav chuyen trang
+import com.example.uniapp_haufinal.activity.friends.FriendsActivity;
 import com.example.uniapp_haufinal.activity.market.MarketActivity;
 import com.example.uniapp_haufinal.activity.map.MapActivity;
 import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
@@ -23,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class HomeActivity extends AppCompatActivity {
-    TextView navHome, navMap, navMarket, navProfile, navPost;
+    TextView navHome, navMap, navMarket, navProfile, navPost, navFriends;
 
     LinearLayout postContainer;
     FirebaseFirestore db;
@@ -58,6 +59,13 @@ public class HomeActivity extends AppCompatActivity {
         navMarket = findViewById(R.id.navMarket);
         navMarket.setOnClickListener(view ->{
             Intent intent = new Intent(HomeActivity.this, MarketActivity.class);
+            startActivity(intent);
+        });
+
+        //Ban be
+        navFriends = findViewById(R.id.navFriends);
+        navFriends.setOnClickListener(view ->{
+            Intent intent = new Intent(HomeActivity.this, FriendsActivity.class);
             startActivity(intent);
         });
 

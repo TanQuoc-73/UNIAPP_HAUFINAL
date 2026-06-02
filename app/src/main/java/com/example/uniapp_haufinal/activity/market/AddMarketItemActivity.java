@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.uniapp_haufinal.R;
+import com.example.uniapp_haufinal.activity.friends.FriendsActivity;
 import com.example.uniapp_haufinal.activity.home.HomeActivity;
 import com.example.uniapp_haufinal.activity.map.MapActivity;
 import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 public class AddMarketItemActivity extends AppCompatActivity {
 
-    TextView txtBack, navHome, navMarket, navPost, navMap, navProfile;
+    TextView txtBack, navHome, navMarket, navPost, navFriends, navMap, navProfile;
     EditText edtTitle, edtDescription, edtPrice, edtPhone, edtLocation;
     Button btnSubmitItem;
 
@@ -46,6 +47,7 @@ public class AddMarketItemActivity extends AppCompatActivity {
         navHome = findViewById(R.id.navHome);
         navMarket = findViewById(R.id.navMarket);
         navPost = findViewById(R.id.navPost);
+        navFriends = findViewById(R.id.navFriends);
         navMap = findViewById(R.id.navMap);
         navProfile = findViewById(R.id.navProfile);
 
@@ -58,6 +60,7 @@ public class AddMarketItemActivity extends AppCompatActivity {
         navHome.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
         navMarket.setOnClickListener(view -> finish());
         navPost.setOnClickListener(view -> startActivity(new Intent(this, CreatePostActivity.class)));
+        navFriends.setOnClickListener(view -> startActivity(new Intent(this, FriendsActivity.class)));
         navMap.setOnClickListener(view -> startActivity(new Intent(this, MapActivity.class)));
         navProfile.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
     }

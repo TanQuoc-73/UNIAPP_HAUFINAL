@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.uniapp_haufinal.R;
+import com.example.uniapp_haufinal.activity.friends.FriendsActivity;
 import com.example.uniapp_haufinal.activity.home.HomeActivity;
 import com.example.uniapp_haufinal.activity.market.MarketActivity;
 import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
@@ -100,6 +101,7 @@ public class MapActivity extends AppCompatActivity {
         TextView navHome = findViewById(R.id.navHome);
         TextView navMarket = findViewById(R.id.navMarket);
         TextView navPost = findViewById(R.id.navPost);
+        TextView navFriends = findViewById(R.id.navFriends);
         TextView navMap = findViewById(R.id.navMap);
         TextView navProfile = findViewById(R.id.navProfile);
 
@@ -119,6 +121,10 @@ public class MapActivity extends AppCompatActivity {
         });
         if (navPost != null) navPost.setOnClickListener(v -> {
             startActivity(new Intent(this, CreatePostActivity.class));
+        });
+        if (navFriends != null) navFriends.setOnClickListener(v -> {
+            startActivity(new Intent(this, FriendsActivity.class));
+            finish();
         });
         if (navProfile != null) navProfile.setOnClickListener(v -> {
             startActivity(new Intent(this, ProfileActivity.class));

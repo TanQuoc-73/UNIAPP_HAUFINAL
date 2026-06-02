@@ -6,53 +6,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFFFFF"
-    tools:context=".activity.post.CreatePostActivity">
+    tools:context=".activity.friends.FriendsActivity">
 
-    <LinearLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Ban be"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/txtBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quay lai"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Dang bai viet"
-            android:textColor="#000000"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/edtContent"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="24dp"
-            android:gravity="top"
-            android:hint="Ban dang nghi gi?"
-            android:inputType="textMultiLine"
-            android:padding="12dp"
-            android:background="#EEEEEE"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btnSubmitPost"
+        <LinearLayout
+            android:id="@+id/userContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Dang bai" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:padding="12dp" />
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,5 +48,4 @@
         <TextView android:id="@+id/navMap" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Map" android:textColor="#000000" android:textSize="13sp" />
         <TextView android:id="@+id/navProfile" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:text="Profile" android:textColor="#000000" android:textSize="13sp" />
     </LinearLayout>
-
 </LinearLayout>

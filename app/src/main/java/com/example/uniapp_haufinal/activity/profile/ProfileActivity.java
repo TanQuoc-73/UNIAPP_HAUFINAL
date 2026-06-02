@@ -22,6 +22,7 @@ import com.example.uniapp_haufinal.R;
 
 //firebase
 import com.example.uniapp_haufinal.activity.auth.LoginActivity;
+import com.example.uniapp_haufinal.activity.friends.FriendsActivity;
 import com.example.uniapp_haufinal.activity.home.HomeActivity;
 import com.example.uniapp_haufinal.activity.market.MarketActivity;
 import com.example.uniapp_haufinal.activity.map.MapActivity;
@@ -41,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText edtName, edtPhone;
     TextView txtEmail;
     TextView txtRole;
-    TextView navHome, navMarket, navPost, navMap, navProfile;
+    TextView navHome, navMarket, navPost, navFriends, navMap, navProfile;
     Button btnSaveProfile, btnLogout;
 
     FirebaseAuth auth;
@@ -70,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
         navHome = findViewById(R.id.navHome);
         navMarket = findViewById(R.id.navMarket);
         navPost = findViewById(R.id.navPost);
+        navFriends = findViewById(R.id.navFriends);
         navMap = findViewById(R.id.navMap);
         navProfile = findViewById(R.id.navProfile);
 
@@ -166,6 +168,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         navPost.setOnClickListener(view -> {
             Intent intent = new Intent(ProfileActivity.this, CreatePostActivity.class);
+            startActivity(intent);
+        });
+
+        navFriends.setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, FriendsActivity.class);
             startActivity(intent);
         });
 
