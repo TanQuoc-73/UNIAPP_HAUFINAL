@@ -20,15 +20,18 @@ import com.example.uniapp_haufinal.activity.profile.ProfileActivity;
 import com.example.uniapp_haufinal.activity.post.CreatePostActivity;
 
 //firebase
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class HomeActivity extends AppCompatActivity {
     TextView navHome, navMap, navMarket, navProfile, navPost, navFriends;
 
-    LinearLayout postContainer;
+    LinearLayout postContainer, friendContainer;
     FirebaseFirestore db;
+    FirebaseAuth auth;
     HomePost homePost;
+    HomeFriend homeFriend;
 
     @Override
     //reload bai viet
@@ -37,6 +40,9 @@ public class HomeActivity extends AppCompatActivity {
         if(homePost !=null){
             homePost.loadPost();
         }
+        if(homeFriend !=null){
+            homeFriend.loadFriends();
+        }
     }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +50,18 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
         postContainer = findViewById(R.id.postContainer);
+        friendContainer = findViewById(R.id.friendContainer);
         homePost = new HomePost(this, postContainer, db);
+        homeFriend = new HomeFriend(this, friendContainer, db, auth);
 
         //Nav
         //Home
         navHome = findViewById(R.id.navHome);
         navHome.setOnClickListener(view -> {
             homePost.loadPost();
+            homeFriend.loadFriends();
             Toast.makeText(this, "Da tai lai bai viet", Toast.LENGTH_SHORT).show();
         });
 

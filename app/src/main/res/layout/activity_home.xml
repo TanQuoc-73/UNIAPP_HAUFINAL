@@ -43,14 +43,13 @@
                 android:text="TN"
                 android:textSize="18sp"
                 android:textColor="#000000" />
-        </LinearLayout>
-
-        <HorizontalScrollView
+        </LinearLayout>        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:scrollbars="none">
 
             <LinearLayout
+                android:id="@+id/friendContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -62,43 +61,7 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:gravity="center"
-                    android:text="Bạn"
-                    android:textSize="14sp"
-                    android:background="#EEEEEE"
-                    android:layout_marginEnd="12dp" />
-
-                <TextView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:gravity="center"
-                    android:text="An"
-                    android:textSize="14sp"
-                    android:background="#EEEEEE"
-                    android:layout_marginEnd="12dp" />
-
-                <TextView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:gravity="center"
-                    android:text="Bình"
-                    android:textSize="14sp"
-                    android:background="#EEEEEE"
-                    android:layout_marginEnd="12dp" />
-
-                <TextView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:gravity="center"
-                    android:text="Chi"
-                    android:textSize="14sp"
-                    android:background="#EEEEEE"
-                    android:layout_marginEnd="12dp" />
-
-                <TextView
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:gravity="center"
-                    android:text="Dũng"
+                    android:text="Ban be"
                     android:textSize="14sp"
                     android:background="#EEEEEE"
                     android:layout_marginEnd="12dp" />
