@@ -85,14 +85,35 @@ public class AddMarketItemActivity extends AppCompatActivity {
                     }
 
                     Map<String, Object> item = new HashMap<>();
+
                     item.put("sellerId", uid);
                     item.put("sellerName", sellerName);
+
                     item.put("title", title);
                     item.put("description", description);
                     item.put("price", price);
+
                     item.put("contactPhone", phone);
                     item.put("pickupLocation", location);
+
+                    /*
+                     * Trạng thái vật phẩm
+                     * available = đang bán
+                     * pending = đang được giữ chỗ
+                     * sold = đã bán
+                     */
                     item.put("status", "available");
+
+                    /*
+                     * Người đang giữ chỗ sản phẩm
+                     */
+                    item.put("buyerId", null);
+
+                    /*
+                     * Thời gian hết hạn giữ chỗ
+                     */
+                    item.put("lockedUntil", null);
+
                     item.put("createdAt", FieldValue.serverTimestamp());
                     item.put("updatedAt", FieldValue.serverTimestamp());
 
