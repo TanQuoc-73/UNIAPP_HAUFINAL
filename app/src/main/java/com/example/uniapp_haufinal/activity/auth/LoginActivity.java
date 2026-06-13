@@ -34,6 +34,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+            return;
+        }
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
@@ -42,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
             edtPassword = findViewById(R.id.edtPassword);
             btnLogin = findViewById(R.id.btnLogin);
             btnRegister = findViewById(R.id.btnRegister);
-            auth = FirebaseAuth.getInstance();
             db = FirebaseFirestore.getInstance();
 
 
