@@ -3,6 +3,7 @@ package com.example.uniapp_haufinal.activity.market;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ import com.google.firebase.Timestamp;
 public class MarketActivity extends AppCompatActivity {
 
     TextView txtBack, txtAddItem, txtMyItems;
-    TextView navHome, navMarket, navPost, navMap, navProfile;
+    TextView navHome, navMarket, navPost, navMap, navProfile, navChat;
     EditText edtSearchProduct;
     LinearLayout productContainer;
 
@@ -51,6 +52,7 @@ public class MarketActivity extends AppCompatActivity {
         navPost = findViewById(R.id.navPost);
         navMap = findViewById(R.id.navMap);
         navProfile = findViewById(R.id.navProfile);
+        navChat = findViewById(R.id.navChat);
         edtSearchProduct = findViewById(R.id.edtSearchProduct);
         productContainer = findViewById(R.id.productContainer);
 
@@ -73,6 +75,7 @@ public class MarketActivity extends AppCompatActivity {
         navPost.setOnClickListener(view -> startActivity(new Intent(this, CreatePostActivity.class)));
         navMap.setOnClickListener(view -> startActivity(new Intent(this, MapActivity.class)));
         navProfile.setOnClickListener(view -> startActivity(new Intent(this, ProfileActivity.class)));
+        navChat.setOnClickListener(view -> startActivity(new Intent(this, com.example.uniapp_haufinal.activity.chat.ChatListActivity.class)));
 
         edtSearchProduct.setOnEditorActionListener((v, actionId, event) -> {
             searchText = edtSearchProduct.getText().toString().trim().toLowerCase();
@@ -102,6 +105,7 @@ public class MarketActivity extends AppCompatActivity {
                         return;
                     }
 
+                    boolean hasItems = false;
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         String itemId = document.getId();
                         String title = document.getString("title");
@@ -165,12 +169,30 @@ public class MarketActivity extends AppCompatActivity {
                             continue;
                         }
 
+                        hasItems = true;
                         addItemView(itemId, title, description, sellerId, sellerName, phone, location, price);
+                    }
+
+                    if (!hasItems) {
+                        showEmptyState(searchText.isEmpty() ? "Chưa có món đồ nào được rao bán" : "Không tìm thấy kết quả phù hợp");
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Khong tai duoc market", Toast.LENGTH_SHORT).show();
+                    if (productContainer.getChildCount() == 0) {
+                        showEmptyState("Không tìm thấy sản phẩm nào");
+                    } else {
+                        Toast.makeText(this, "Không tải được market", Toast.LENGTH_SHORT).show();
+                    }
                 });
+    }
+
+    private void showEmptyState(String message) {
+        TextView tv = new TextView(this);
+        tv.setText(message);
+        tv.setGravity(android.view.Gravity.CENTER);
+        tv.setPadding(0, 100, 0, 0);
+        tv.setTextColor(Color.GRAY);
+        productContainer.addView(tv);
     }
 
     private void addItemView(String itemId, String title, String description, String sellerId, String sellerName,

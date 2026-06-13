@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -73,6 +74,7 @@ public class ChatActivity extends AppCompatActivity {
         findViewById(R.id.navPost).setOnClickListener(v -> startActivity(new Intent(this, com.example.uniapp_haufinal.activity.post.CreatePostActivity.class)));
         findViewById(R.id.navMap).setOnClickListener(v -> startActivity(new Intent(this, MapActivity.class)));
         findViewById(R.id.navProfile).setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
+        findViewById(R.id.navChat).setOnClickListener(v -> startActivity(new Intent(this, ChatListActivity.class)));
     }
 
     private void handleIntentData() {
@@ -84,7 +86,7 @@ public class ChatActivity extends AppCompatActivity {
         partnerName = intent.getStringExtra(EXTRA_PARTNER_NAME);
 
         if (partnerId == null || currentUserId == null) {
-            Toast.makeText(this, "Lỗi: Không xác định được phiên làm việc", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lỗi: Không xác định được người nhận", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -96,11 +98,25 @@ public class ChatActivity extends AppCompatActivity {
         Arrays.sort(ids);
         chatRoomId = ids[0] + "_" + ids[1];
 
+        updateChatRoomMetadata(); // Lưu thông tin phòng chat để hiển thị trong danh sách
         listenForMessages();
     }
 
+    private void updateChatRoomMetadata() {
+        // Lưu/Cập nhật thông tin phòng chat để cả 2 user đều thấy trong danh sách "Chat đã từng chat"
+        Map<String, Object> roomData = new HashMap<>();
+        roomData.put("users", Arrays.asList(currentUserId, partnerId));
+        roomData.put("lastUpdated", FieldValue.serverTimestamp());
+        
+        // Metadata cho người dùng hiện tại
+        roomData.put("userName_" + currentUserId, auth.getCurrentUser().getDisplayName());
+        roomData.put("userName_" + partnerId, partnerName);
+
+        db.collection("chatRooms").document(chatRoomId).set(roomData, com.google.firebase.firestore.SetOptions.merge());
+    }
+
     private void listenForMessages() {
-        db.collection("chats")
+        db.collection("chatRooms")
                 .document(chatRoomId)
                 .collection("messages")
                 .orderBy("timestamp", Query.Direction.ASCENDING)
@@ -127,10 +143,16 @@ public class ChatActivity extends AppCompatActivity {
         message.put("text", msgText);
         message.put("timestamp", FieldValue.serverTimestamp());
 
-        db.collection("chats")
+        db.collection("chatRooms")
                 .document(chatRoomId)
                 .collection("messages")
                 .add(message);
+
+        // Cập nhật tin nhắn cuối cùng để hiện ở danh sách chat
+        Map<String, Object> lastMsgUpdate = new HashMap<>();
+        lastMsgUpdate.put("lastMessage", msgText);
+        lastMsgUpdate.put("lastUpdated", FieldValue.serverTimestamp());
+        db.collection("chatRooms").document(chatRoomId).update(lastMsgUpdate);
 
         edtMessage.setText("");
     }
@@ -138,9 +160,8 @@ public class ChatActivity extends AppCompatActivity {
     private void addMessageToUI(String senderId, String text) {
         TextView tv = new TextView(this);
         tv.setText(text);
-        tv.setPadding(30, 20, 30, 20);
+        tv.setPadding(35, 20, 35, 20);
         tv.setTextSize(16);
-        tv.setMaxWidth(800);
         
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

@@ -102,6 +102,7 @@ public class MapActivity extends AppCompatActivity {
         TextView navPost = findViewById(R.id.navPost);
         TextView navMap = findViewById(R.id.navMap);
         TextView navProfile = findViewById(R.id.navProfile);
+        TextView navChat = findViewById(R.id.navChat);
 
         // Highlight current tab
         if (navMap != null) {
@@ -123,6 +124,9 @@ public class MapActivity extends AppCompatActivity {
         if (navProfile != null) navProfile.setOnClickListener(v -> {
             startActivity(new Intent(this, ProfileActivity.class));
             finish();
+        });
+        if (navChat != null) navChat.setOnClickListener(v -> {
+            startActivity(new Intent(this, com.example.uniapp_haufinal.activity.chat.ChatListActivity.class));
         });
     }
 

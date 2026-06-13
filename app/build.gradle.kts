@@ -51,6 +51,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.5.1")
     //dependency de doc ghi db trong firebase
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
+
+    // Glide for image loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     
     // osmdroid & Location services
     implementation("org.osmdroid:osmdroid-android:6.1.18")

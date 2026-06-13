@@ -35,6 +35,9 @@
             android:name=".activity.chat.ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.chat.ChatListActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.market.MarketActivity"
             android:exported="false" />
         <activity
