@@ -28,7 +28,7 @@ public class BuyActivity extends AppCompatActivity {
 
     TextView txtBack, txtTitle, txtPrice, txtDescription, txtSeller, txtPhone, txtLocation;
     TextView navHome, navMarket, navPost, navFriends, navMap, navProfile;
-    Button btnBuy, btnCall, btnSms;
+    Button btnBuy, btnCall, btnSms, btnChat;
 
     FirebaseAuth auth;
     FirebaseFirestore db;
@@ -49,6 +49,7 @@ public class BuyActivity extends AppCompatActivity {
         btnBuy = findViewById(R.id.btnBuy);
         btnCall = findViewById(R.id.btnCall);
         btnSms = findViewById(R.id.btnSms);
+        btnChat = findViewById(R.id.btnChat);
         navHome = findViewById(R.id.navHome);
         navMarket = findViewById(R.id.navMarket);
         navPost = findViewById(R.id.navPost);
@@ -117,6 +118,31 @@ public class BuyActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("smsto:" + phone));
             intent.putExtra("sms_body", "Chao ban, minh muon mua: " + title);
+            startActivity(intent);
+        });
+        btnChat.setOnClickListener(view -> {
+            FirebaseUser currentUser = auth.getCurrentUser();
+
+            // 1. Kiểm tra đăng nhập
+            if (currentUser == null) {
+                Toast.makeText(this, "Chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 2. Chặn việc tự chat với chính mình (giống logic chặn mua hàng)
+            if (sellerId != null && sellerId.equals(currentUser.getUid())) {
+                Toast.makeText(this, "Không thể tự chat với chính mình", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // 3. Chuyển sang màn hình Chat và gửi kèm dữ liệu
+            Intent intent = new Intent(BuyActivity.this, ChatActivity.class);
+
+            // Các "key" này PHẢI khớp 100% với key bạn dùng ở hàm getIntent() trong ChatActivity
+            intent.putExtra("partner_id", sellerId);
+            intent.putExtra("item_id", itemId);
+            intent.putExtra("partner_name", sellerName);
+
             startActivity(intent);
         });
     }
